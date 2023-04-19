@@ -1,0 +1,36 @@
+pipeline:
+  name: server2
+  identifier: server2
+  projectIdentifier: nodejsserver
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: server2
+        build: <+input>
+  stages:
+    - stage:
+        name: Build Node App
+        identifier: Build_Node_App
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
+                  spec:
+                    connectorRef: my_docker_hub_account
+                    repo: 782121/hanunodejs
+                    tags:
+                      - cibuilt
